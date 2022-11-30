@@ -2,10 +2,14 @@
   "name": "tas",
   "version": "0.0.2",
   "dependencies": {
+    "air-lpwan-demo": "^1.0.2",
     "fs": "0.0.2",
     "js2xmlparser": "^1.0.0",
+    "mcp-spi-adc": "^3.2.0",
     "net": "^1.0.2",
     "node-dht-sensor": "^0.4.3",
+    "pigpio": "^3.3.1",
+    "rpio": "^2.4.2",
     "serialport": "^10.4.0",
     "shortid": "^2.2.8",
     "xml2js": "^0.4.12"

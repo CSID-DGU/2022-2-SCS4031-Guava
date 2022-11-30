@@ -14,4 +14,9 @@
         <ctname>temp</ctname>
         <id>temp</id>
     </upload>
+    <upload>
+        <ctname>gas</ctname>
+        <id>gas</id>
+    </upload>
+
 </m2m:conf>

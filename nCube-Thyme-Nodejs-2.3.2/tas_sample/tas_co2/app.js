@@ -93,6 +93,7 @@ var t_count = 0;
 //}
 
 var temp = require('node-dht-sensor');
+  
 function temp_upload_action(){
     temp.read(11,4, function(err, temperature, humiduty){
         if (tas_state == 'upload'){
@@ -107,23 +108,75 @@ function temp_upload_action(){
         }    
     });
 }
-//var mraa = require('mraa');
-//var pin = new mraa.Aio(0);
-//function gas_upload_action(){
-  //  var data = pin.read();
-    //if(tas_state == 'upload'){
-      //  for(var i = 0; i < upload_arr.length; i++){
-        //    if(upload_arr[i].id == 'gas'){
-          //      var cin = {ctname: upload_arr[i].ctname, con: data.toFixed(1)};
-            //        console.log(JSON.stringify(cin) + ' ---->');
-              //      upload_client.write(JSON.stringify(cin) + '<EOF>');
-                //    break;
-           // }
-     //   }
-   // }
-//}
+var mcpadc = require('mcp-spi-adc');
+
+// const gassensor = mcpadc.open(0, {speedHz: 20000}, err => {
+//     if (err) {
+//       throw err;
+//     }
+  
+//     setInterval(_ => {
+//       gassensor.read((err, reading) => {
+//         if (err) {
+//           throw err;
+//         }
+//         var gasppm = (reading.value *1000)*100;
+//         console.log(gasppm);
+//       });
+//     }, 1000);
+//   });
+
+function gas_upload_action(){
+    const gassensor = mcpadc.open(0, {speedHz: 1350000}, err => {
+        if (err) {
+          throw err;
+        }
+      
+        
+          gassensor.read((err, reading) => {
+            if (err) {
+              throw err;
+            }
+            var gasppm = (reading.value *1000);
+            if (tas_state == 'upload'){
+                for (var i = 0; i < upload_arr.length; i++){
+                    if(upload_arr[i].id == 'gas'){
+                        var cin = {ctname: upload_arr[i].ctname, con: gasppm.toFixed()};
+                        console.log(JSON.stringify(cin) + ' ---->');
+                        upload_client.write(JSON.stringify(cin) + '<EOF>');
+                        break;
+                        }
+                    }
+            }
+          });
+      });
+          
+};
 
 
+    
+    // var mcpadc = require('mcp-spi-adc');
+// function gas_upload_action(){
+//     var gassensor = mcpadc.openMcp3008(0, {speedHz: 1350000}, err => {
+//         if (err) throw err;
+      
+//         setInterval(_ => {
+//           gassensor.read((err, reading) => {
+//             if (err) throw err;
+//             if (tas_state == 'upload'){
+//                 for (var i = 0; i < upload_arr.length; i++){
+//                     if(upload_arr[i].id == 'gas'){
+//                         var cin = {ctname: upload_arr[i].ctname, con: (reading.value*1000).toFixed()};
+//                         console.log(JSON.stringify(cin) + ' ---->');
+//                         upload_client.write(JSON.stringify(cin) + '<EOF>');
+//                         break;
+//                     }
+//                 }
+//             }    
+//           });
+//        }, 1000);
+//       });
+// }
 function serial_upload_action() {
     if (tas_state == 'upload') {
         var buf = new Buffer(4);
@@ -136,7 +189,6 @@ function serial_upload_action() {
 }
 
 var tas_download_count = 0;
-
 function on_receive(data) {
     if (tas_state == 'connect' || tas_state == 'reconnect' || tas_state == 'upload') {
         var data_arr = data.toString().split('<EOF>');
@@ -182,6 +234,7 @@ function on_receive(data) {
 
 
 var SerialPort = require('serialport');
+const { read } = require('node-dht-sensor');
 var myPort = 'null';
 function tas_watchdog() {
     if(tas_state == 'init') {
@@ -248,7 +301,7 @@ function tas_watchdog() {
 
 //wdt.set_wdt(require('shortid').generate(), 2, timer_upload_action);
 wdt.set_wdt(require('shortid').generate(), 2, temp_upload_action);
-//wdt.set_wdt(require('shortid').generate(), 2, gas_upload_action);
+wdt.set_wdt(require('shortid').generate(), 2, gas_upload_action);
 wdt.set_wdt(require('shortid').generate(), 3, tas_watchdog);
 //wdt.set_wdt(require('shortid').generate(), 3, serial_upload_action);
 
