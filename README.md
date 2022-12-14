@@ -25,18 +25,21 @@ Mobius : 2.4.36
 
 # Usage
 ```
-Step1:
-cd \nCube-Thyme-Nodejs-2.3.2\tas_sample\tas_co2
-nano(vim) conf.xml 
- -> <parenthostname> 서버 ip <parenthostname> 수정
+Step1 Mobius 구동
 
+Step2 &Cube 구동
+1. cd \nCube-Thyme-Nodejs-2.3.2
+2. nano(vim) conf.js
+     -> cse.host        = '모비우스 ip'; 수정
+3. node thyme.js
 
-
-Step2:
-cd \nCube-Thyme-Nodejs-2.3.2\tas_sample\tas_co2
-npm install
-npm install node-dht-sensor
-npm install mpc-spi-adc
-node app.js
+Step3 TAS 구동
+1. cd \nCube-Thyme-Nodejs-2.3.2\tas_sample\tas_co2
+2. nano(vim) conf.xml 
+     -> <parenthostname> 서버 ip <parenthostname> 수정
+3. npm install
+4. npm install node-dht-sensor
+5. npm install mpc-spi-adc
+6. node app.js
 
 ```
