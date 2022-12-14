@@ -27,12 +27,16 @@ Mobius : 2.4.36
 ```
 Step1:
 cd \nCube-Thyme-Nodejs-2.3.2\tas_sample\tas_co2
-nano(vim) conf.xml 파일 
+nano(vim) conf.xml 
+ -> <parenthostname> 서버 ip <parenthostname> 수정
+
+
 
 Step2:
 cd \nCube-Thyme-Nodejs-2.3.2\tas_sample\tas_co2
 npm install
 npm install node-dht-sensor
 npm install mpc-spi-adc
+node app.js
 
 ```
