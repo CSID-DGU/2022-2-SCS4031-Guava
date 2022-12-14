@@ -21,6 +21,7 @@ MySQL : 8.0.22
 Eclipse Mosquitto : 2.0.4
 Mobius : 2.4.36
 &Cube-Thyme : 2.3.2
+Raspberrypi : 4 Model B
 ```
 
 # Usage
