@@ -8,7 +8,7 @@
 # Team Members
 | 팀원 | 역할 |
 | ------- | ------- |
-| 김성호 | IoT 플랫폼 개발, Grafana 제작  / 보고서 및 회의록 작성|
+| 김성호 | IoT 플랫폼 개발, 웹 대시보드 제작  / 보고서 및 회의록 작성|
 | 이경석 | 레이더 센서 구동 / 회의록 작성, 예산 관리 |
 | 임혜정 | 라즈베리파이 화재 감지기 제작, IoT 플랫폼 개발 / 보고서 및 회의록 작성, ppt 제작|
 
@@ -27,6 +27,11 @@ Raspberrypi : 4 Model B
 # Usage
 ```
 Step1 Mobius 구동
+1. MySQL v8.0.22 설치
+2. Eclipse Mosquitto v2.0.4 설치
+3. Mobius v2.4.36 설치
+4. Node JS 최신버전 설치
+5. Mobius 실행 후 환경설정
 
 Step2 &Cube 구동
 1. cd \nCube-Thyme-Nodejs-2.3.2
